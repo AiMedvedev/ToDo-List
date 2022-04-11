@@ -14,8 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
         todoList.innerHTML = '';
         todoCompleted.innerHTML = '';
 
-        toDoData.forEach(function (item) {
+        toDoData.forEach(function (item, i) {
             const li = document.createElement('li');
+            let removeItems = document.querySelectorAll('.todo-remove');
 
             li.classList.add('todo-item');
             li.innerHTML = '<span class="text-todo">' + item.text + '</span>' +
@@ -35,18 +36,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 localStorage.setItem('toDoList', JSON.stringify(toDoData));
                 render();
             });
-        });
 
-        let removeItems = document.querySelectorAll('.todo-remove');
-        console.log(removeItems);
-
-        removeItems.forEach((item) => {
-            item.addEventListener('click', function (e, i) {
-                const newArr = toDoData.splice(i, 1);
-                e.target.parentNode.parentNode.parentNode.removeChild(e.target.parentNode.parentNode);
-                localStorage.setItem('toDoList', JSON.stringify(toDoData));
-                console.log(i);
-                return toDoData;
+            removeItems.forEach((item) => {
+                item.addEventListener('click', function (e) {
+                    toDoData.splice(i, 1);
+                    e.target.parentNode.parentNode.parentNode.removeChild(e.target.parentNode.parentNode);
+                    localStorage.setItem('toDoList', JSON.stringify(toDoData));
+                    return toDoData;
+                });
             });
         });
     };
