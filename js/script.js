@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         toDoData.forEach(function (item, i) {
             const li = document.createElement('li');
-            let removeItems = document.querySelectorAll('.todo-remove');
+            
 
             li.classList.add('todo-item');
             li.innerHTML = '<span class="text-todo">' + item.text + '</span>' +
@@ -37,17 +37,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 render();
             });
 
-            removeItems.forEach((item) => {
-                item.addEventListener('click', function (e) {
-                   
-                    toDoData.splice(i, 1);
-                             
-                    e.target.parentNode.parentNode.parentNode.removeChild(e.target.parentNode.parentNode);
-                    
-                    localStorage.setItem('toDoList', JSON.stringify(toDoData));
-                    
-                });
-                return toDoData;
+            let removeItems = li.querySelector('.todo-remove');
+
+            removeItems.addEventListener('click', function (e) {
+                toDoData.splice(i, 1);
+                e.target.closest('.todo-item').remove();
+                localStorage.setItem('toDoList', JSON.stringify(toDoData));
+                render();
             });
         });
     };
