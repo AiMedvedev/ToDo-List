@@ -39,11 +39,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
             removeItems.forEach((item) => {
                 item.addEventListener('click', function (e) {
+                   
                     toDoData.splice(i, 1);
+                             
                     e.target.parentNode.parentNode.parentNode.removeChild(e.target.parentNode.parentNode);
+                    
                     localStorage.setItem('toDoList', JSON.stringify(toDoData));
-                    return toDoData;
+                    
                 });
+                return toDoData;
             });
         });
     };
